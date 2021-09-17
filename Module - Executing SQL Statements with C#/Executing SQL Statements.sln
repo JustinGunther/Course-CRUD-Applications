@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLFundamentals.DataAccess", "SQLFundamentals.DataAccess\SQLFundamentals.DataAccess.csproj", "{52E13844-8AF7-42A4-A57D-2EBD10F8A9C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLFundamentals.UI.Console", "SQLFundamentals.UI.Console\SQLFundamentals.UI.Console.csproj", "{16CF8ED4-C062-4969-818B-609A7818179E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{52E13844-8AF7-42A4-A57D-2EBD10F8A9C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52E13844-8AF7-42A4-A57D-2EBD10F8A9C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52E13844-8AF7-42A4-A57D-2EBD10F8A9C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52E13844-8AF7-42A4-A57D-2EBD10F8A9C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16CF8ED4-C062-4969-818B-609A7818179E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16CF8ED4-C062-4969-818B-609A7818179E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16CF8ED4-C062-4969-818B-609A7818179E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16CF8ED4-C062-4969-818B-609A7818179E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
