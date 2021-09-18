@@ -14,100 +14,76 @@ namespace SQLFundamentals.DataAccess.Controllers
         private static string sqlConnectionString = "Server=localhost;Database=SQLFundamentals;Trusted_Connection=True;";
 
         #region Contacts Commands
-        public static bool CreateContact(string firstName, string lastName, string phoneNumber, string eMailAddress)
+        public static int CreateContact(string firstName, string lastName, string phoneNumber, string emailAddress)
         {
-            try
-            {
-                string insertSqlCommand = @"INSERT INTO Contacts
-                                                   (FirstName
-                                                   ,LastName
-                                                   ,PhoneNumber
-                                                   ,EMailAddress
-                                                   ,DateInserted)
+            int ContactId = 0;
+            string insertSqlCommand = @"INSERT INTO CONTACTS
+                                                   (FIRSTNAME,
+                                                    LASTNAME,
+                                                    PHONENUMBER,
+                                                    EMAILADDRESS)
+                                             OUTPUT INSERTED.CONTACTID
                                              VALUES
-                                                   (@FirstName
-                                                   ,@LastName
-                                                   ,@PhoneNumber
-                                                   ,@EMailAddress
-                                                   ,GETDATE())";
-                using (SqlConnection sqlConnection = new SqlConnection(sqlConnectionString))
-                {
-                    using (SqlCommand sqlCommand = new SqlCommand(insertSqlCommand, sqlConnection))
-                    {
-                        sqlCommand.Parameters.Add(new SqlParameter("@FirstName", firstName));
-                        sqlCommand.Parameters.Add(new SqlParameter("@LastName", lastName));
-                        sqlCommand.Parameters.Add(new SqlParameter("@PhoneNumber", phoneNumber));
-                        sqlCommand.Parameters.Add(new SqlParameter("@EMailAddress", eMailAddress));
-
-                        sqlCommand.Connection.Open();
-                        sqlCommand.ExecuteNonQuery();
-                        sqlCommand.Connection.Close();
-                    }
-                }
-                return true;
-            }
-            catch (Exception ex)
+                                                   (@FIRSTNAME,
+                                                    @LASTNAME,
+                                                    @PHONENUMBER,
+                                                    @EMAILADDRESS)";
+            using (SqlConnection sqlConnection = new SqlConnection(sqlConnectionString))
             {
-                Console.WriteLine(ex.Message);
-                return false;
+                using (SqlCommand sqlCommand = new SqlCommand(insertSqlCommand, sqlConnection))
+                {
+                    sqlCommand.Parameters.Add(new SqlParameter("@FIRSTNAME", firstName));
+                    sqlCommand.Parameters.Add(new SqlParameter("@LASTNAME", lastName));
+                    sqlCommand.Parameters.Add(new SqlParameter("@PHONENUMBER", phoneNumber));
+                    sqlCommand.Parameters.Add(new SqlParameter("@EMAILADDRESS", emailAddress));
+
+                    sqlCommand.Connection.Open();
+                    ContactId = (int)sqlCommand.ExecuteScalar();
+                    sqlCommand.Connection.Close();
+                }
             }
+            return ContactId;
         }
-        public static bool UpdateContact(int contactID, string firstName, string lastName, string phoneNumber, string eMailAddress)
+        public static int UpdateContact(int contactID, string firstName, string lastName, string phoneNumber, string emailAddress)
         {
-            try
+            string updateSqlCommand = @"UPDATE CONTACTS
+                                               SET FIRSTNAME =    @FIRSTNAME,
+                                                   LASTNAME =     @LASTNAME,
+                                                   PHONENUMBER =  @PHONENUMBER,
+                                                   EMAILADDRESS = @EMAILADDRESS
+                                             WHERE CONTACTID =    @CONTACTID";
+            using (SqlConnection sqlConnection = new SqlConnection(sqlConnectionString))
             {
-                string updateSqlCommand = @"UPDATE Contacts
-                                               SET FirstName =    @FirstName
-                                                  ,LastName =     @LastName
-                                                  ,PhoneNumber =  @PhoneNumber
-                                                  ,EMailAddress = @EMailAddress
-                                             WHERE ContactID =    @ContactID";
-                using (SqlConnection sqlConnection = new SqlConnection(sqlConnectionString))
+                using (SqlCommand sqlCommand = new SqlCommand(updateSqlCommand, sqlConnection))
                 {
-                    using (SqlCommand sqlCommand = new SqlCommand(updateSqlCommand, sqlConnection))
-                    {
-                        sqlCommand.Parameters.Add(new SqlParameter("@FirstName", firstName));
-                        sqlCommand.Parameters.Add(new SqlParameter("@LastName", lastName));
-                        sqlCommand.Parameters.Add(new SqlParameter("@PhoneNumber", phoneNumber));
-                        sqlCommand.Parameters.Add(new SqlParameter("@EMailAddress", eMailAddress));
-                        sqlCommand.Parameters.Add(new SqlParameter("@ContactID", contactID));
+                    sqlCommand.Parameters.Add(new SqlParameter("@FIRSTNAME", firstName));
+                    sqlCommand.Parameters.Add(new SqlParameter("@LASTNAME", lastName));
+                    sqlCommand.Parameters.Add(new SqlParameter("@PHONENUMBER", phoneNumber));
+                    sqlCommand.Parameters.Add(new SqlParameter("@EMAILADDRESS", emailAddress));
+                    sqlCommand.Parameters.Add(new SqlParameter("@CONTACTID", contactID));
 
-                        sqlCommand.Connection.Open();
-                        sqlCommand.ExecuteNonQuery();
-                        sqlCommand.Connection.Close();
-                    }
+                    sqlCommand.Connection.Open();
+                    sqlCommand.ExecuteNonQuery();
+                    sqlCommand.Connection.Close();
                 }
-                return true;
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
+            return contactID;
         }
         public static bool DeleteContact(int contactID)
         {
-            try
+            string deleteSqlCommand = @"DELETE FROM CONTACTS WHERE CONTACTID = @CONTACTID";
+            using (SqlConnection sqlConnection = new SqlConnection(sqlConnectionString))
             {
-                string deleteSqlCommand = @"DELETE FROM Contacts WHERE ContactID = @ContactID";
-                using (SqlConnection sqlConnection = new SqlConnection(sqlConnectionString))
+                using (SqlCommand sqlCommand = new SqlCommand(deleteSqlCommand, sqlConnection))
                 {
-                    using (SqlCommand sqlCommand = new SqlCommand(deleteSqlCommand, sqlConnection))
-                    {
-                        sqlCommand.Parameters.Add(new SqlParameter("@ContactID", contactID));
+                    sqlCommand.Parameters.Add(new SqlParameter("@CONTACTID", contactID));
 
-                        sqlCommand.Connection.Open();
-                        sqlCommand.ExecuteNonQuery();
-                        sqlCommand.Connection.Close();
-                    }
+                    sqlCommand.Connection.Open();
+                    sqlCommand.ExecuteNonQuery();
+                    sqlCommand.Connection.Close();
                 }
-                return true;
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
+            return true;
         }
         #endregion
 
@@ -115,86 +91,74 @@ namespace SQLFundamentals.DataAccess.Controllers
 
         public static List<ContactModel>? GetAllContacts()
         {
-            try
+            List<ContactModel> contactsList = new List<ContactModel>();
+
+            string querySql = "SELECT * FROM CONTACTS ORDER BY CONTACTID DESC";
+            using (SqlConnection sqlConnection = new SqlConnection(sqlConnectionString))
             {
-                List<ContactModel> contactsList = new List<ContactModel>();
-
-                string querySql = "SELECT * FROM Contacts ORDER BY DateInserted DESC";
-                using (SqlConnection sqlConnection = new SqlConnection(sqlConnectionString))
+                using (SqlCommand sqlCommand = new SqlCommand(querySql, sqlConnection))
                 {
-                    using (SqlCommand sqlCommand = new SqlCommand(querySql, sqlConnection))
+                    using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand))
                     {
-                        using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand))
+                        using (DataTable dataTable = new DataTable())
                         {
-                            using (DataTable dataTable = new DataTable())
+                            sqlDataAdapter.Fill(dataTable);
+                            ContactModel contactModel = new ContactModel();
+                            foreach (DataRow dataRow in dataTable.Rows)
                             {
-                                sqlDataAdapter.Fill(dataTable);
+                                contactModel = new ContactModel();
 
-                                contactsList = dataTable.AsEnumerable().Select(dataRow => new ContactModel
-                                {
-                                    ContactID = Convert.ToInt32(dataRow["ContactID"]),
-                                    FirstName = dataRow["FirstName"]?.ToString() ?? "",
-                                    LastName = dataRow["LastName"]?.ToString() ?? "",
-                                    EMailAddress = dataRow["EMailAddress"]?.ToString() ?? "",
-                                    PhoneNumber = dataRow["PhoneNumber"]?.ToString() ?? "",
-                                    DateInserted = Convert.ToDateTime(dataRow["DateInserted"])
-                                }).ToList();
+                                contactModel.ContactID = Convert.ToInt32(dataRow["CONTACTID"]);
+                                contactModel.FirstName = dataRow["FIRSTNAME"]?.ToString() ?? "";
+                                contactModel.LastName = dataRow["LASTNAME"]?.ToString() ?? "";
+                                contactModel.EMailAddress = dataRow["EMAILADDRESS"]?.ToString() ?? "";
+                                contactModel.PhoneNumber = dataRow["PHONENUMBER"]?.ToString() ?? "";
+                                contactModel.DateInserted = Convert.ToDateTime(dataRow["DATEINSERTED"]);
+
+                                contactsList.Add(contactModel);
                             }
                         }
                     }
                 }
+            }
 
-                return contactsList;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
+            return contactsList;
         }
 
         public static ContactModel? GetContactByID(int contactID)
         {
-            try
-            {
-                ContactModel contact = new ContactModel();
+            ContactModel contact = new ContactModel();
 
-                string querySql = "SELECT * FROM Contacts WHERE ContactID = @ContactID";
-                using (SqlConnection sqlConnection = new SqlConnection(sqlConnectionString))
+            string querySql = "SELECT * FROM CONTACTS WHERE CONTACTID = @CONTACTID";
+            using (SqlConnection sqlConnection = new SqlConnection(sqlConnectionString))
+            {
+                using (SqlCommand sqlCommand = new SqlCommand(querySql, sqlConnection))
                 {
-                    using (SqlCommand sqlCommand = new SqlCommand(querySql, sqlConnection))
+                    sqlCommand.Parameters.Add(new SqlParameter("@CONTACTID", contactID));
+                    sqlConnection.Open();
+                    using (SqlDataReader reader = sqlCommand.ExecuteReader())
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("@ContactID", contactID));
-                        sqlConnection.Open();
-                        using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                        if (reader.HasRows)
                         {
-                            if (reader.HasRows)
-                            {
-                                reader.Read();
+                            reader.Read();
 
-                                contact.ContactID = Convert.ToInt32(reader["ContactID"]);
-                                contact.FirstName = reader["FirstName"]?.ToString() ?? "";
-                                contact.LastName = reader["LastName"]?.ToString() ?? "";
-                                contact.EMailAddress = reader["EMailAddress"]?.ToString() ?? "";
-                                contact.PhoneNumber = reader["PhoneNumber"]?.ToString() ?? "";
-                                contact.DateInserted = Convert.ToDateTime(reader["DateInserted"]);
-                            }
-                            else
-                            {
-                                throw new Exception("No rows found.");
-                            }
+                            contact.ContactID = Convert.ToInt32(reader["CONTACTID"]);
+                            contact.FirstName = reader["FIRSTNAME"]?.ToString() ?? "";
+                            contact.LastName = reader["LASTNAME"]?.ToString() ?? "";
+                            contact.EMailAddress = reader["EMAILADDRESS"]?.ToString() ?? "";
+                            contact.PhoneNumber = reader["PHONENUMBER"]?.ToString() ?? "";
+                            contact.DateInserted = Convert.ToDateTime(reader["DATEINSERTED"]);
                         }
-
-                        sqlConnection.Close();
+                        else
+                        {
+                            throw new Exception("No rows found.");
+                        }
                     }
+
+                    sqlConnection.Close();
                 }
-                return contact;
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
+            return contact;
         }
 
         #endregion
