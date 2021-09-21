@@ -13,7 +13,6 @@ namespace SQLFundamentals.DataAccess.Controllers
     {
         private static string sqlConnectionString = "Server=localhost;Database=SQLFundamentals;Trusted_Connection=True;";
 
-        #region Contacts Commands
         public static int CreateContact(string firstName, string lastName, string phoneNumber, string emailAddress)
         {
             int ContactId = 0;
@@ -85,9 +84,7 @@ namespace SQLFundamentals.DataAccess.Controllers
             }
             return true;
         }
-        #endregion
 
-        #region Contacts Queries
 
         public static List<ContactModel>? GetAllContacts()
         {
@@ -161,6 +158,5 @@ namespace SQLFundamentals.DataAccess.Controllers
             return contact;
         }
 
-        #endregion
     }
 }
