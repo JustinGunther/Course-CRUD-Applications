@@ -1,6 +1,7 @@
 ﻿using SQLFundamentals.DataAccess.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace SQLFundamentals.DataAccess.Controllers
 {
     public class ContactController
     {
-        private static string sqlConnectionString = "Server=localhost;Database=SQLFundamentals;Trusted_Connection=True;";
+        private static string sqlConnectionString = ConfigurationManager.ConnectionStrings["SQLFundamentals"].ConnectionString;
 
         public static int CreateContact(string firstName, string lastName, string phoneNumber, string emailAddress)
         {
@@ -110,7 +111,7 @@ namespace SQLFundamentals.DataAccess.Controllers
                                 contactModel.LastName = dataRow["LASTNAME"]?.ToString() ?? "";
                                 contactModel.EMailAddress = dataRow["EMAILADDRESS"]?.ToString() ?? "";
                                 contactModel.PhoneNumber = dataRow["PHONENUMBER"]?.ToString() ?? "";
-                                contactModel.DateInserted = Convert.ToDateTime(dataRow["DATEINSERTED"]);
+                                //contactModel.DateInserted = Convert.ToDateTime(dataRow["DATEINSERTED"]);
 
                                 contactsList.Add(contactModel);
                             }
@@ -144,7 +145,7 @@ namespace SQLFundamentals.DataAccess.Controllers
                             contact.LastName = reader["LASTNAME"]?.ToString() ?? "";
                             contact.EMailAddress = reader["EMAILADDRESS"]?.ToString() ?? "";
                             contact.PhoneNumber = reader["PHONENUMBER"]?.ToString() ?? "";
-                            contact.DateInserted = Convert.ToDateTime(reader["DATEINSERTED"]);
+                            //contact.DateInserted = Convert.ToDateTime(reader["DATEINSERTED"]);
                         }
                         else
                         {
