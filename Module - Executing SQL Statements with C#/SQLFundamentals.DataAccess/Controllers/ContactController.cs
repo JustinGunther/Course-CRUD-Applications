@@ -101,17 +101,16 @@ namespace SQLFundamentals.DataAccess.Controllers
                         using (DataTable dataTable = new DataTable())
                         {
                             sqlDataAdapter.Fill(dataTable);
-                            ContactModel contactModel = new ContactModel();
+                            
                             foreach (DataRow dataRow in dataTable.Rows)
                             {
-                                contactModel = new ContactModel();
+                                ContactModel contactModel = new ContactModel();
 
                                 contactModel.ContactID = Convert.ToInt32(dataRow["CONTACTID"]);
                                 contactModel.FirstName = dataRow["FIRSTNAME"]?.ToString() ?? "";
                                 contactModel.LastName = dataRow["LASTNAME"]?.ToString() ?? "";
                                 contactModel.EMailAddress = dataRow["EMAILADDRESS"]?.ToString() ?? "";
                                 contactModel.PhoneNumber = dataRow["PHONENUMBER"]?.ToString() ?? "";
-                                //contactModel.DateInserted = Convert.ToDateTime(dataRow["DATEINSERTED"]);
 
                                 contactsList.Add(contactModel);
                             }
@@ -145,7 +144,6 @@ namespace SQLFundamentals.DataAccess.Controllers
                             contact.LastName = reader["LASTNAME"]?.ToString() ?? "";
                             contact.EMailAddress = reader["EMAILADDRESS"]?.ToString() ?? "";
                             contact.PhoneNumber = reader["PHONENUMBER"]?.ToString() ?? "";
-                            //contact.DateInserted = Convert.ToDateTime(reader["DATEINSERTED"]);
                         }
                         else
                         {
