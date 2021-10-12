@@ -13,6 +13,5 @@ namespace SQLFundamentals.DataAccess.Models
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public string EMailAddress { get; set; }
-        public DateTime DateInserted { get; set; }
     }
 }
