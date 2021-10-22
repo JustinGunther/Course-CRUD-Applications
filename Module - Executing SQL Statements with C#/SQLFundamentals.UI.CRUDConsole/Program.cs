@@ -5,15 +5,16 @@ using System.Collections.Generic;
 
 namespace SQLFundamentals.UI.CRUDConsole
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine("CRUD Operations Demo Application");
             ChooseOption();
+            Console.WriteLine("test");
         }
 
-        static void ChooseOption()
+        private static void ChooseOption()
         {
             bool validOption = false;
 
@@ -35,25 +36,31 @@ namespace SQLFundamentals.UI.CRUDConsole
                         validOption = true;
                         CreateContact();
                         break;
+
                     case "2":
                         validOption = true;
                         UpdateContact();
                         break;
+
                     case "3":
                         validOption = true;
                         DeleteContact();
                         break;
+
                     case "4":
                         validOption = true;
                         GetAllContacts();
                         break;
+
                     case "5":
                         validOption = true;
                         GetContactByID();
                         break;
+
                     case "6":
                         validOption = true;
                         break;
+
                     default:
                         Console.WriteLine("Invalid Entry.");
                         Console.WriteLine();
@@ -101,6 +108,7 @@ namespace SQLFundamentals.UI.CRUDConsole
                         }
                         ChooseOption();
                         break;
+
                     case "2":
                         validOption = true;
                         string defaultFirstName = "John";
@@ -118,10 +126,12 @@ namespace SQLFundamentals.UI.CRUDConsole
                         }
                         ChooseOption();
                         break;
+
                     case "3":
                         validOption = true;
                         ChooseOption();
                         break;
+
                     default:
                         Console.WriteLine("Invalid Entry.");
                         Console.WriteLine();
@@ -130,6 +140,7 @@ namespace SQLFundamentals.UI.CRUDConsole
                 }
             }
         }
+
         private static void UpdateContact()
         {
             bool validOption = false;
@@ -169,10 +180,12 @@ namespace SQLFundamentals.UI.CRUDConsole
                         }
                         ChooseOption();
                         break;
+
                     case "2":
                         validOption = true;
                         ChooseOption();
                         break;
+
                     default:
                         Console.WriteLine("Invalid Entry.");
                         Console.WriteLine();
@@ -181,6 +194,7 @@ namespace SQLFundamentals.UI.CRUDConsole
                 }
             }
         }
+
         private static void DeleteContact()
         {
             bool validOption = false;
@@ -211,10 +225,12 @@ namespace SQLFundamentals.UI.CRUDConsole
 
                         ChooseOption();
                         break;
+
                     case "2":
                         validOption = true;
                         ChooseOption();
                         break;
+
                     default:
                         Console.WriteLine("Invalid Entry.");
                         Console.WriteLine();
@@ -263,7 +279,6 @@ namespace SQLFundamentals.UI.CRUDConsole
                     contactModel.ContactID, contactModel.FirstName, contactModel.LastName,
                     contactModel.PhoneNumber, contactModel.EMailAddress)
                    );
-
             }
             catch (Exception ex)
             {
