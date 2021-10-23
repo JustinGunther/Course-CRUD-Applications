@@ -1,20 +1,14 @@
 ﻿using SQLFundamentals.DataAccess.Models;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SQLFundamentals.DataAccess.Controllers
 {
-    public class ContactController
+    public class ContactController : Controller
     {
-        private static string sqlConnectionString = ConfigurationManager.ConnectionStrings["SQLFundamentals"].ConnectionString;
-
-        public static int CreateContact(string firstName, string lastName, string phoneNumber, string emailAddress)
+        public int CreateContact(string firstName, string lastName, string phoneNumber, string emailAddress)
         {
             int ContactId = 0;
             string insertSqlCommand = @"INSERT INTO CONTACTS
@@ -44,7 +38,8 @@ namespace SQLFundamentals.DataAccess.Controllers
             }
             return ContactId;
         }
-        public static int UpdateContact(int contactID, string firstName, string lastName, string phoneNumber, string emailAddress)
+
+        public int UpdateContact(int contactID, string firstName, string lastName, string phoneNumber, string emailAddress)
         {
             string updateSqlCommand = @"UPDATE CONTACTS
                                                SET FIRSTNAME =    @FIRSTNAME,
@@ -69,7 +64,8 @@ namespace SQLFundamentals.DataAccess.Controllers
             }
             return contactID;
         }
-        public static bool DeleteContact(int contactID)
+
+        public bool DeleteContact(int contactID)
         {
             string deleteSqlCommand = @"DELETE FROM CONTACTS WHERE CONTACTID = @CONTACTID";
             using (SqlConnection sqlConnection = new SqlConnection(sqlConnectionString))
@@ -86,8 +82,7 @@ namespace SQLFundamentals.DataAccess.Controllers
             return true;
         }
 
-
-        public static List<ContactModel>? GetAllContacts()
+        public List<ContactModel>? GetAllContacts()
         {
             List<ContactModel> contactsList = new List<ContactModel>();
 
@@ -101,7 +96,7 @@ namespace SQLFundamentals.DataAccess.Controllers
                         using (DataTable dataTable = new DataTable())
                         {
                             sqlDataAdapter.Fill(dataTable);
-                            
+
                             foreach (DataRow dataRow in dataTable.Rows)
                             {
                                 ContactModel contactModel = new ContactModel();
@@ -122,7 +117,7 @@ namespace SQLFundamentals.DataAccess.Controllers
             return contactsList;
         }
 
-        public static ContactModel? GetContactByID(int contactID)
+        public ContactModel? GetContactByID(int contactID)
         {
             ContactModel contact = new ContactModel();
 
@@ -156,6 +151,5 @@ namespace SQLFundamentals.DataAccess.Controllers
             }
             return contact;
         }
-
     }
 }
