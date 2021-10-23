@@ -1,8 +1,4 @@
-﻿using SQLFundamentals.DataAccess.Controllers;
-using SQLFundamentals.DataAccess.Models;
-using SQLFundamentals.UI.CRUDConsole.Tools;
-using System;
-using System.Collections.Generic;
+﻿using SQLFundamentals.UI.CRUDConsole.Tools;
 
 namespace SQLFundamentals.UI.CRUDConsole
 {
@@ -14,3 +10,5 @@ namespace SQLFundamentals.UI.CRUDConsole
         }
     }
 }
+
+// tested create, update

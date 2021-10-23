@@ -3,9 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SQLFundamentals.DataAccess.Controllers
 {
@@ -99,16 +96,17 @@ namespace SQLFundamentals.DataAccess.Controllers
                         using (DataTable dataTable = new DataTable())
                         {
                             sqlDataAdapter.Fill(dataTable);
-                            ContactModel contactModel = new ContactModel();
+
                             foreach (DataRow dataRow in dataTable.Rows)
                             {
-                                contactModel = new ContactModel();
+                                ContactModel contactModel = new ContactModel();
 
                                 contactModel.ContactID = Convert.ToInt32(dataRow["CONTACTID"]);
                                 contactModel.FirstName = dataRow["FIRSTNAME"]?.ToString() ?? "";
                                 contactModel.LastName = dataRow["LASTNAME"]?.ToString() ?? "";
                                 contactModel.EMailAddress = dataRow["EMAILADDRESS"]?.ToString() ?? "";
                                 contactModel.PhoneNumber = dataRow["PHONENUMBER"]?.ToString() ?? "";
+
                                 contactsList.Add(contactModel);
                             }
                         }
