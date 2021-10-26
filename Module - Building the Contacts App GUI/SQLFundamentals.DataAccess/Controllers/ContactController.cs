@@ -1,17 +1,13 @@
 ﻿using SQLFundamentals.DataAccess.Models;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SQLFundamentals.DataAccess.Controllers
 {
     public class ContactController
-    {       
+    {
         public static int CreateContact(string firstName, string lastName, string phoneNumber, string emailAddress, ISQLFundamentalsConfigManager configManager)
         {
             string sqlConnectionString = configManager.SQLFundamentalsConnection;
@@ -43,6 +39,7 @@ namespace SQLFundamentals.DataAccess.Controllers
             }
             return ContactId;
         }
+
         public static int UpdateContact(int contactID, string firstName, string lastName, string phoneNumber, string emailAddress, ISQLFundamentalsConfigManager configManager)
         {
             string sqlConnectionString = configManager.SQLFundamentalsConnection;
@@ -69,6 +66,7 @@ namespace SQLFundamentals.DataAccess.Controllers
             }
             return contactID;
         }
+
         public static bool DeleteContact(int contactID, ISQLFundamentalsConfigManager configManager)
         {
             string sqlConnectionString = configManager.SQLFundamentalsConnection;
@@ -87,7 +85,6 @@ namespace SQLFundamentals.DataAccess.Controllers
             return true;
         }
 
-
         public static List<ContactModel>? GetAllContacts(ISQLFundamentalsConfigManager configManager)
         {
             string sqlConnectionString = configManager.SQLFundamentalsConnection;
@@ -104,7 +101,7 @@ namespace SQLFundamentals.DataAccess.Controllers
                         using (DataTable dataTable = new DataTable())
                         {
                             sqlDataAdapter.Fill(dataTable);
-                            
+
                             foreach (DataRow dataRow in dataTable.Rows)
                             {
                                 ContactModel contactModel = new ContactModel();
@@ -160,6 +157,5 @@ namespace SQLFundamentals.DataAccess.Controllers
             }
             return contact;
         }
-
     }
 }
