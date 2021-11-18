@@ -1,4 +1,6 @@
 ﻿using System;
+using CRUDApps.DataAccess.EF.Configuration;
+using CRUDApps.DataAccess.EF.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -6,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
-namespace CRUDApps.DataAccess.EF.Models
+namespace CRUDApps.DataAccess.EF.Context
 {
     public partial class SQLFundamentalsContext : DbContext
     {

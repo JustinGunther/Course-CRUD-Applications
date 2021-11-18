@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using CRUDApps.DataAccess.EF;
+using CRUDApps.DataAccess.EF.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;

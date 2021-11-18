@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVCContactsApp.Models;
-using CRUDApps.DataAccess.EF;
-using CRUDApps.DataAccess.EF.Models;
-using CRUDApps.DataAccess.EF.Controllers;
+using CRUDApps.DataAccess.EF.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,16 +26,8 @@ namespace MVCContactsApp.Controllers
         [HttpPost]
         public IActionResult Index(int contactID, string firstName, string lastName, string phoneNumber, string emailAddress)
         {
-            if (contactID > 0)
-            {
-                ContactController.UpdateContact(contactID, firstName, lastName, phoneNumber, emailAddress, _configuration);
-            }
-            else
-            {
-                ContactController.CreateContact(firstName, lastName, phoneNumber, emailAddress, _configuration);
-            }
-
             ContactsViewModel model = new ContactsViewModel(_configuration);
+            model.SaveContact(contactID, firstName, lastName, phoneNumber, emailAddress);
             model.IsActionSuccess = true;
             model.ActionMessage = "Contact has been saved successfully";
 
@@ -52,12 +42,13 @@ namespace MVCContactsApp.Controllers
 
         public IActionResult Delete(int id)
         {
+            ContactsViewModel model = new ContactsViewModel(_configuration);
+
             if (id > 0)
             {
-                ContactController.DeleteContact(id, _configuration);
+                model.RemoveContact(id);
             }
-
-            ContactsViewModel model = new ContactsViewModel(_configuration);
+            
             model.IsActionSuccess = true;
             model.ActionMessage = "Contact has been deleted successfully";
             return View("Index", model);

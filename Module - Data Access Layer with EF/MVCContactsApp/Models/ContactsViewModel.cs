@@ -1,5 +1,5 @@
-﻿using CRUDApps.DataAccess.EF;
-using CRUDApps.DataAccess.EF.Controllers;
+﻿using CRUDApps.DataAccess.EF.Configuration;
+using CRUDApps.DataAccess.EF.Repositories;
 using CRUDApps.DataAccess.EF.Models;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace MVCContactsApp.Models
 {
     public class ContactsViewModel
     {
-        private ISQLFundamentalsConfigManager _configuration;
+        private ContactRepository _repo;
 
         public List<Contacts> ContactList { get; set; }
 
@@ -22,15 +22,15 @@ namespace MVCContactsApp.Models
 
         public ContactsViewModel(ISQLFundamentalsConfigManager configuration)
         {
-            _configuration = configuration;
+            _repo = new ContactRepository(configuration);
             ContactList = GetAllContacts();
             CurrentContact = ContactList.FirstOrDefault();
         }
 
         public ContactsViewModel(ISQLFundamentalsConfigManager configuration, int contactId)
         {
-            _configuration = configuration;
-            ContactList = new List<Contacts>();
+            _repo = new ContactRepository(configuration);
+            ContactList = GetAllContacts();
 
             if (contactId > 0)
             {
@@ -42,14 +42,36 @@ namespace MVCContactsApp.Models
             }
         }
 
+        public void SaveContact(int contactID, string firstName, string lastName, string phoneNumber, string emailAddress)
+        {
+            if (contactID > 0)
+            {
+                _repo.UpdateContact(contactID, firstName, lastName, phoneNumber, emailAddress);
+            }
+            else
+            {
+                contactID = _repo.CreateContact(firstName, lastName, phoneNumber, emailAddress);
+            }
+
+            ContactList = GetAllContacts();
+            CurrentContact = GetContact(contactID);
+        }
+
+        public void RemoveContact(int contactID)
+        {
+            _repo.DeleteContact(contactID);
+            ContactList = GetAllContacts();
+            CurrentContact = ContactList.FirstOrDefault();
+        }
+
         public List<Contacts> GetAllContacts()
         {
-            return ContactController.GetAllContacts(_configuration);
+            return _repo.GetAllContacts();
         }
 
         public Contacts GetContact(int contactId)
         {
-            return ContactController.GetContactByID(contactId, _configuration);
+            return _repo.GetContactByID(contactId);
         }
     }
 }

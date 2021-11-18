@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 
-namespace CRUDApps.DataAccess.EF
+namespace CRUDApps.DataAccess.EF.Configuration
 {
     public class SQLFundamentalsConfigManager : ISQLFundamentalsConfigManager
     {
