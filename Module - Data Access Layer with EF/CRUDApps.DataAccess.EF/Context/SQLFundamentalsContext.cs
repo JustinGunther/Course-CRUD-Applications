@@ -1,4 +1,5 @@
 ﻿using System;
+using CRUDApps.DataAccess.EF.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -6,21 +7,20 @@ using Microsoft.EntityFrameworkCore.Metadata;
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
-namespace CRUDApps.DataAccess.EF.Models
+namespace CRUDApps.DataAccess.EF.Context
 {
     public partial class SQLFundamentalsContext : DbContext
-    {
-        private string _sqlConnectionString;
+    {        
 
-        public SQLFundamentalsContext(ISQLFundamentalsConfigManager configManager)
+        public SQLFundamentalsContext()
         {
-            _sqlConnectionString = configManager.SQLFundamentalsConnection;
+            
         }
 
-        public SQLFundamentalsContext(DbContextOptions<SQLFundamentalsContext> options, ISQLFundamentalsConfigManager configManager)
+        public SQLFundamentalsContext(DbContextOptions<SQLFundamentalsContext> options)
             : base(options)
         {
-            _sqlConnectionString = configManager.SQLFundamentalsConnection;
+            
         }
 
         public virtual DbSet<Banking> Banking { get; set; }
@@ -36,10 +36,7 @@ namespace CRUDApps.DataAccess.EF.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(_sqlConnectionString);
-            }
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

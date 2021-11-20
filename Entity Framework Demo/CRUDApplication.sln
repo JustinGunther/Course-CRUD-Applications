@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVCContactsApp", "MVCContactsApp\MVCContactsApp.csproj", "{2B4D1342-703B-4930-9152-EF93111ACB7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRUDApps.DataAccess.EF", "CRUDApps.DataAccess.EF\CRUDApps.DataAccess.EF.csproj", "{FED5E904-223E-4F3E-8FBA-BBF2AAE13C6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLFundamentals.DataAccess", "SQLFundamentals.DataAccess\SQLFundamentals.DataAccess.csproj", "{9DC925AF-A3F5-40AB-9BB3-36E66968C41C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{2B4D1342-703B-4930-9152-EF93111ACB7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B4D1342-703B-4930-9152-EF93111ACB7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B4D1342-703B-4930-9152-EF93111ACB7C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FED5E904-223E-4F3E-8FBA-BBF2AAE13C6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FED5E904-223E-4F3E-8FBA-BBF2AAE13C6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FED5E904-223E-4F3E-8FBA-BBF2AAE13C6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FED5E904-223E-4F3E-8FBA-BBF2AAE13C6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DC925AF-A3F5-40AB-9BB3-36E66968C41C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DC925AF-A3F5-40AB-9BB3-36E66968C41C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DC925AF-A3F5-40AB-9BB3-36E66968C41C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DC925AF-A3F5-40AB-9BB3-36E66968C41C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
