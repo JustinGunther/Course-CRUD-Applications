@@ -3,12 +3,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using CRUDApps.DataAccess.EF.Context;
+using SQLFundamentals.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace MVCContactsApp
 {
@@ -26,9 +25,7 @@ namespace MVCContactsApp
         {
             services.AddControllersWithViews();
             services.AddMvc();
-            services.AddDbContext<SQLFundamentalsContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("SQLFundamentals")));
-            //services.AddSingleton<ISQLFundamentalsConfigManager, SQLFundamentalsConfigManager>();
+            services.AddSingleton<ISQLFundamentalsConfigManager, SQLFundamentalsConfigManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
 
-namespace CRUDApps.DataAccess.EF.Configuration
+namespace SQLFundamentals.DataAccess
 {
     public class SQLFundamentalsConfigManager : ISQLFundamentalsConfigManager
     {

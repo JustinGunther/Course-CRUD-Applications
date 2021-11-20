@@ -1,5 +1,4 @@
 ﻿using CRUDApps.DataAccess.EF.Models;
-using CRUDApps.DataAccess.EF.Configuration;
 using CRUDApps.DataAccess.EF.Context;
 using System;
 using System.Collections.Generic;
@@ -12,9 +11,9 @@ namespace CRUDApps.DataAccess.EF.Repositories
     {
         private SQLFundamentalsContext _dbContext;
 
-        public ContactRepository(ISQLFundamentalsConfigManager configManager)
+        public ContactRepository(SQLFundamentalsContext dbContext)
         {
-            _dbContext = new SQLFundamentalsContext(configManager);            
+            _dbContext = dbContext;            
         }
 
         public int CreateContact(string firstName, string lastName, string phoneNumber, string emailAddress)

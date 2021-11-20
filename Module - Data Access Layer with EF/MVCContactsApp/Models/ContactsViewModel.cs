@@ -1,4 +1,4 @@
-﻿using CRUDApps.DataAccess.EF.Configuration;
+﻿using CRUDApps.DataAccess.EF.Context;
 using CRUDApps.DataAccess.EF.Repositories;
 using CRUDApps.DataAccess.EF.Models;
 using System;
@@ -20,16 +20,16 @@ namespace MVCContactsApp.Models
 
         public string ActionMessage { get; set; }
 
-        public ContactsViewModel(ISQLFundamentalsConfigManager configuration)
+        public ContactsViewModel(SQLFundamentalsContext context)
         {
-            _repo = new ContactRepository(configuration);
+            _repo = new ContactRepository(context);
             ContactList = GetAllContacts();
             CurrentContact = ContactList.FirstOrDefault();
         }
 
-        public ContactsViewModel(ISQLFundamentalsConfigManager configuration, int contactId)
+        public ContactsViewModel(SQLFundamentalsContext context, int contactId)
         {
-            _repo = new ContactRepository(configuration);
+            _repo = new ContactRepository(context);
             ContactList = GetAllContacts();
 
             if (contactId > 0)
