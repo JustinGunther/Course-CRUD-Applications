@@ -13,18 +13,11 @@ namespace CRUDApps.DataAccess.EF.Repositories
 
         public ContactRepository(SQLFundamentalsContext dbContext)
         {
-            _dbContext = dbContext;            
+            _dbContext = dbContext;
         }
 
-        public int CreateContact(string firstName, string lastName, string phoneNumber, string emailAddress)
+        public int CreateContact(Contacts contact)
         {
-            Contacts contact = new Contacts()
-            {
-                FirstName = firstName,
-                LastName = lastName,
-                PhoneNumber = phoneNumber,
-                EmailAddress = emailAddress
-            };
 
             _dbContext.Add(contact);
             _dbContext.SaveChanges();
@@ -32,18 +25,18 @@ namespace CRUDApps.DataAccess.EF.Repositories
             return contact.ContactId;
         }
 
-        public int UpdateContact(int contactID, string firstName, string lastName, string phoneNumber, string emailAddress)
+        public int UpdateContact(Contacts contact)
         {
-            Contacts contact = _dbContext.Contacts.Find(contactID);
-            contact.FirstName = firstName;
-            contact.LastName = lastName;
-            contact.PhoneNumber = phoneNumber;
-            contact.EmailAddress = emailAddress;
+            Contacts existingContact = _dbContext.Contacts.Find(contact.ContactId);
+
+            existingContact.FirstName = contact.FirstName;
+            existingContact.LastName = contact.LastName;
+            existingContact.PhoneNumber = contact.PhoneNumber;
+            existingContact.EmailAddress = contact.EmailAddress;
 
             _dbContext.SaveChanges();
-            contactID = contact.ContactId;
 
-            return contactID;
+            return existingContact.ContactId;
         }
 
         public bool DeleteContact(int contactID)
@@ -57,7 +50,7 @@ namespace CRUDApps.DataAccess.EF.Repositories
 
         public List<Contacts> GetAllContacts()
         {
-            List<Contacts> contactsList = _dbContext.Contacts.OrderByDescending(x => x.ContactId).ToList();
+            List<Contacts> contactsList = _dbContext.Contacts.ToList();
 
             return contactsList;
         }

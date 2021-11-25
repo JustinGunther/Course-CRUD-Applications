@@ -14,5 +14,19 @@ namespace CRUDApps.DataAccess.EF.Models
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public string EmailAddress { get; set; }
+
+        public Contacts(int contactId, string firstName, string lastName, string phoneNumber, string emailAddress)
+        {
+            ContactId = contactId;
+            FirstName = firstName;
+            LastName = lastName;
+            PhoneNumber = phoneNumber;
+            EmailAddress = emailAddress;
+        }
+
+        public Contacts()
+        {
+
+        }
     }
 }
