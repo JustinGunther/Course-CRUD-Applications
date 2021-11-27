@@ -14,7 +14,7 @@ namespace MVCContactsApp.Models
 
         public List<Contacts> ContactList { get; set; }
 
-        public Contacts CurrentContact { get; set; }        
+        public Contacts CurrentContact { get; set; }
 
         public bool IsActionSuccess { get; set; }
 
@@ -42,19 +42,19 @@ namespace MVCContactsApp.Models
             }
         }
 
-        public void SaveContact(int contactID, string firstName, string lastName, string phoneNumber, string emailAddress)
+        public void SaveContact(Contacts contact)
         {
-            if (contactID > 0)
+            if (contact.ContactId > 0)
             {
-                _repo.UpdateContact(contactID, firstName, lastName, phoneNumber, emailAddress);
+                _repo.UpdateContact(contact);
             }
             else
             {
-                contactID = _repo.CreateContact(firstName, lastName, phoneNumber, emailAddress);
+                contact.ContactId = _repo.CreateContact(contact);
             }
 
             ContactList = GetAllContacts();
-            CurrentContact = GetContact(contactID);
+            CurrentContact = GetContact(contact.ContactId);
         }
 
         public void RemoveContact(int contactID)
