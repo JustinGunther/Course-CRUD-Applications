@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CRUDApps.DataAccess.EF.Context;
+using CRUDApps.DataAccess.EF.Models;
 
 namespace MVCContactsApp.Controllers
 {
@@ -27,7 +28,10 @@ namespace MVCContactsApp.Controllers
         public IActionResult Index(int contactID, string firstName, string lastName, string phoneNumber, string emailAddress)
         {
             ContactsViewModel model = new ContactsViewModel(_context);
-            model.SaveContact(contactID, firstName, lastName, phoneNumber, emailAddress);
+
+            Contacts contact = new(contactID, firstName, lastName, phoneNumber, emailAddress);
+
+            model.SaveContact(contact);
             model.IsActionSuccess = true;
             model.ActionMessage = "Contact has been saved successfully";
 
@@ -48,7 +52,7 @@ namespace MVCContactsApp.Controllers
             {
                 model.RemoveContact(id);
             }
-            
+
             model.IsActionSuccess = true;
             model.ActionMessage = "Contact has been deleted successfully";
             return View("Index", model);
