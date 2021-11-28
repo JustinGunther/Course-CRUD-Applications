@@ -16,7 +16,7 @@ namespace CRUDApps.DataAccess.EF.Repositories
             _dbContext = dbContext;
         }
 
-        public int CreateContact(Contacts contact)
+        public int Create(Contacts contact)
         {
 
             _dbContext.Add(contact);
@@ -25,7 +25,7 @@ namespace CRUDApps.DataAccess.EF.Repositories
             return contact.ContactId;
         }
 
-        public int UpdateContact(Contacts contact)
+        public int Update(Contacts contact)
         {
             Contacts existingContact = _dbContext.Contacts.Find(contact.ContactId);
 
@@ -39,7 +39,7 @@ namespace CRUDApps.DataAccess.EF.Repositories
             return existingContact.ContactId;
         }
 
-        public bool DeleteContact(int contactID)
+        public bool Delete(int contactID)
         {
             Contacts contact = _dbContext.Contacts.Find(contactID);
             _dbContext.Remove(contact);
