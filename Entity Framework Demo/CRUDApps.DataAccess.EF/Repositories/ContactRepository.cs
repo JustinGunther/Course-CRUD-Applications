@@ -1,9 +1,8 @@
-﻿using CRUDApps.DataAccess.EF.Models;
-using CRUDApps.DataAccess.EF.Context;
+﻿using CRUDApps.DataAccess.EF.Context;
+using CRUDApps.DataAccess.EF.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace CRUDApps.DataAccess.EF.Repositories
 {
@@ -18,7 +17,6 @@ namespace CRUDApps.DataAccess.EF.Repositories
 
         public int Create(Contacts contact)
         {
-
             _dbContext.Add(contact);
             _dbContext.SaveChanges();
 

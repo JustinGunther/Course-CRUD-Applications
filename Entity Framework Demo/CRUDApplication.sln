@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVCContactsApp", "MVCContac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLFundamentals.DataAccess", "SQLFundamentals.DataAccess\SQLFundamentals.DataAccess.csproj", "{9DC925AF-A3F5-40AB-9BB3-36E66968C41C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRUDApps.DataAccess.EF", "CRUDApps.DataAccess.EF\CRUDApps.DataAccess.EF.csproj", "{7A0DAD7B-F5C5-4E55-8C54-9AF29409ACEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9DC925AF-A3F5-40AB-9BB3-36E66968C41C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DC925AF-A3F5-40AB-9BB3-36E66968C41C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DC925AF-A3F5-40AB-9BB3-36E66968C41C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A0DAD7B-F5C5-4E55-8C54-9AF29409ACEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A0DAD7B-F5C5-4E55-8C54-9AF29409ACEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A0DAD7B-F5C5-4E55-8C54-9AF29409ACEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A0DAD7B-F5C5-4E55-8C54-9AF29409ACEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

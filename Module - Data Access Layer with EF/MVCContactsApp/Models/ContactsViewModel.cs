@@ -46,11 +46,11 @@ namespace MVCContactsApp.Models
         {
             if (contact.ContactId > 0)
             {
-                _repo.UpdateContact(contact);
+                _repo.Update(contact);
             }
             else
             {
-                contact.ContactId = _repo.CreateContact(contact);
+                contact.ContactId = _repo.Create(contact);
             }
 
             ContactList = GetAllContacts();
@@ -59,7 +59,7 @@ namespace MVCContactsApp.Models
 
         public void RemoveContact(int contactID)
         {
-            _repo.DeleteContact(contactID);
+            _repo.Delete(contactID);
             ContactList = GetAllContacts();
             CurrentContact = ContactList.FirstOrDefault();
         }
