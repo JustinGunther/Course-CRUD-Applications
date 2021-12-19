@@ -35,7 +35,7 @@ namespace FunctionLibrary.Tests
         }
 
         [Fact]
-        public void Calculate_ShouldThrowException()
+        public void Calculate_ShouldThrowExceptionWithInvalidInput()
         {
             // Arrange
             string invalidInput = "9+9#5";

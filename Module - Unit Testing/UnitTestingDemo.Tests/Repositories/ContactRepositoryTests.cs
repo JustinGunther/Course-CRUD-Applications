@@ -16,8 +16,11 @@ namespace CRUDApps.DataAccess.EF.Tests
 
         [Theory]
         [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(3)]
         public void GetContactByID_ShouldReturnContactIfExists(int contactId)
         {
+            // Arrange
             var contactsData = new List<Contacts>
             {
                 new Contacts(1, "John", "Smith", "(407) 555-1212", "jsmith@gmail.com"),
@@ -26,7 +29,7 @@ namespace CRUDApps.DataAccess.EF.Tests
             }.AsQueryable();
 
             var contactsList = Substitute.For<DbSet<Contacts>, IQueryable<Contacts>>();
-            contactsList.Find(Arg.Any<int>()).Returns(x => contactsData.FirstOrDefault(c => c.ContactId == (int)((object[])x[0])[0]));
+            contactsList.Find(contactId).Returns(contactsData.FirstOrDefault(c => c.ContactId == contactId));
             contactsList.As<IQueryable<Contacts>>().Provider.Returns(contactsData.Provider);
             contactsList.As<IQueryable<Contacts>>().Expression.Returns(contactsData.Expression);
             contactsList.As<IQueryable<Contacts>>().ElementType.Returns(contactsData.ElementType);
@@ -34,11 +37,13 @@ namespace CRUDApps.DataAccess.EF.Tests
 
             var context = Substitute.For<SQLFundamentalsContext>();
             context.Contacts.Returns(contactsList);
-
+            
             var sut = new ContactRepository(context);
 
+            // Act
             var contact = sut.GetContactByID(contactId);
 
+            // Assert
             contact.Should().BeOfType<Contacts>()
                 .Which.ContactId.Should().Be(contactId);
         }
